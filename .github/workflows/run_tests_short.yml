@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include: #TODO
+        include: 
           - { os: ubuntu-20.04, CC: gcc-10,   CXX: g++-10,     python: '3.9', build-flag: release }
 
           # # Ubuntu-18.04
@@ -94,7 +94,7 @@ jobs:
           PYTHON_VERSION: ${{ matrix.python }}
           PROJECTS_DIR: ${{ env.PROJECTS_DIR }}
           DGBUILD_FLAG: ${{ matrix.build-flag }}
-          INSTALL_GEANT4: false #TODO
+          INSTALL_GEANT4: ${{ matrix.os !='ubuntu-22.04' }} #temp solution until Geant4 update
 
       - name: Run DGCode tests
         run: |
@@ -118,7 +118,7 @@ jobs:
           path: ${{ github.workspace }}/${{ env.PROJECTS_DIR }}/.bld/testresults/dgtest_results_junitformat_${{ matrix.os }}.${{ matrix.CC }}.python-${{ matrix.python }}.dgcode-${{ matrix.build-flag }}.xml
 
   report:
-    name: Test reporting
+    name: Creating test report
     if: always()
     needs: run-tests
     runs-on: ubuntu-latest
@@ -134,7 +134,7 @@ jobs:
       uses: EnricoMi/publish-unit-test-result-action/composite@v2
       if: always()
       with:
-        check_name: Tests Report
+        check_name: Test Report
         junit_files: artifact_dir/dgtest_results_junitformat*.xml
         report_individual_runs: "true"
         comment_mode: "off" #control pull request comments
