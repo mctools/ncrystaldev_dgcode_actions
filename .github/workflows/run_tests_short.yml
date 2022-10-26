@@ -101,7 +101,7 @@ jobs:
           . $GITHUB_WORKSPACE/dgdepfixerInstall/setup.sh
           export DGCODE_EXTRA_PKG_PATH="$GITHUB_WORKSPACE/ncrystaldev_projects/"
           . bootstrap.sh
-          dgbuild -at --testexcerpts=20 --${{ matrix.build-flag }}
+          dgbuild -at NOT=NCLongTests --testexcerpts=20 --${{ matrix.build-flag }}
         working-directory: ${{ env.PROJECTS_DIR }}
         env:
           DGDEP_IGNOREBADSHEBANG: 1
