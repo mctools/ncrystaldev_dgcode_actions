@@ -1,4 +1,4 @@
-name: 'run_tests'
+name: 'run_tests_long'
 
 on:
   workflow_dispatch:

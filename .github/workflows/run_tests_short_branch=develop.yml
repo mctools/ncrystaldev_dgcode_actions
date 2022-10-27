@@ -1,4 +1,4 @@
-name: 'run_tests_short'
+name: 'run_tests_short_branch=develop'
 
 on:
   workflow_dispatch:
